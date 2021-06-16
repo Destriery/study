@@ -10,8 +10,9 @@ max = 1000
 arrays = (
     [i for i in range(max)],
     sorted([i for i in range(max)], key=lambda x: random.random()),
-    [i for i in reversed(range(max))],
+    [i for i in reversed(range(max))]
 )
+random_array = [random.randint(0, 1000) for i in range(max)]
 _result = [i for i in range(max)]
 
 
@@ -30,6 +31,14 @@ def sort_test(func):
         print(f'{i}: {profiler.result_time}')
 
         assert array == _result
+
+    profiler.start()
+    func(random_array)
+    profiler.stop()
+
+    print(f'random: {profiler.result_time}')
+
+    assert random_array == sorted(random_array)
 
 
 def test__bubble():
