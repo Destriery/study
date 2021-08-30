@@ -14,11 +14,12 @@ def bubble(array: list) -> list:
 
     length = len(array)
 
-    # в случае использования is_changed время выполнения увеличится
+    # в случае использования is_changed время выполнения в среднем увеличится из-за операций присваивания
     for j in range(length - 1):
         # is_changed = False
         for i in range(length - j - 1):
             if array[i] > array[i + 1]:
+                # если тут делать замену значений с помощью временной переменной, время выполнения уменьшится
                 array[i], array[i + 1] = array[i + 1], array[i]
                 # is_changed = True
 
