@@ -33,6 +33,9 @@ SecondLine1(2)  SecondLine2(5)
             |
           Last(1)
 
+доп. материалы
+- https://tirinox.ru/mro-python/
+
 """
 
 
@@ -102,3 +105,10 @@ print(F.mro())
 #   <class '__main__.Z'>,
 #   <class 'object'>
 # ]
+
+"""
+Будет ошибка: Cannot create consistent method ordering
+N = type('N', (object,), {})
+M = type('M', (N,), {})
+Y = type('Y', (N, M), {})
+"""
