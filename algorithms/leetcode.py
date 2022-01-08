@@ -97,3 +97,44 @@ def reverse(self, x: int) -> int:
 
     else:
         return 0
+
+
+def get_valid_sum(array: list, _max: int, count: int) -> int:
+    """Есть массив целых чисел например [50, 57, 53, 56, 58, 51, 81] есть переменная max и переменная count:
+        Max отвечает за число превышать которое нельзя
+        Count - отвечает за то, сколько чисел из массива мы должны сложить.
+        В функцию передаются все эти аргументы, далее складывая count чисел в массиве,
+        мы должны вернуть сумму максимально близкую к max
+        Например если мы передаём в функцию
+        (163, 3, [50, 57, 53, 56, 58, 51, 81])
+        То вернуться должно 163 т.к. числа 50+57+56 в сумме дадут 163 а это и есть наш max
+
+        import itertools
+        def choose_best_sum(t, k, ls):
+            '''Лучшее решение задачи с codewars =)'''
+            try:
+                return max(sum(i) for i in itertools.combinations(ls,k) if sum(i)<=t)
+            except:
+                return None
+    """
+    result_max = 0
+    tree = {'list': array, 'sum': 0}
+    current_line = [tree]
+    for step in range(count):
+        new_line = []
+        for item in current_line:
+            for i, num in enumerate(item['list']):
+                item[num] = {
+                    'list': item['list'][i + 1:],
+                    'sum': item['sum'] + num,
+                    # 'expr': f"{item['expr']} + {num}" if item.get('expr') else str(num)
+                }
+
+                new_line.append(item[num])
+
+                if step == count - 1 and item[num]['sum'] <= _max:
+                    result_max = max([result_max, item[num]['sum']])
+
+        current_line = new_line
+
+    return result_max if result_max else None
