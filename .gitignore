@@ -1,15 +1,9 @@
 __pycache__
-.pytest_cache
-.venv*
-.venv
-.vscode
+*.pyc
 
-*local*
-material
+dist
 
-*.sqlite3
-*.db*
+.*
+/.*
 
-.DS_Store
-node_modules
-/dist
+!.gitignore

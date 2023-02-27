@@ -3,12 +3,11 @@
 # MRO
 
 ## Алгоритм.
-Обходим дерево слева направо. То есть:
 
-1. Выбираем первого левого родителя.
-2. Поторяем пункт 1 пока не дойдем до вершины ромба (по умолчанию: object).
-3. Находим все ветки, которые идут до данной вершины. (ищем слева направо)
-3. Продолжаем идти по крайней левой ветки, пока не закончатся классы.
+1. Обходим дерево в глубину слева направо.
+2. Формируем список из пройденных классов.
+3. Удаляем повторяющиеся классы (оставляем первое вхождение).
+4. Если встречаются базовые классы, идущие после потомков, перемещаем их перед потомком.
 
 ## Пример
 
@@ -32,6 +31,13 @@ SecondLine1(2)  SecondLine2(5)
          \__ __/  # noqa
             |
           Last(1)
+
+1. Last, SecondLine1, FirstLine1, FOther1, [Grand], Grand1, Grand2, Main, [Grand], Grand1, Grand2, SOther1, SecondLine2, FirstLine2, Main, [Grand], Grand1, Grand2, FOther2, SOther2
+2. Last, SecondLine1, FirstLine1, FOther1, Grand, [Grand1], Grand2, Main, [Grand1], Grand2, SOther1, SecondLine2, FirstLine2, Main, [Grand1], Grand2, FOther2, SOther2
+3. Last, SecondLine1, FirstLine1, FOther1, Grand, Grand1, [Grand2], Main, [Grand2], SOther1, SecondLine2, FirstLine2, Main, [Grand2], FOther2, SOther2
+4. Last, SecondLine1, FirstLine1, FOther1, Grand, Grand1, Grand2, [Main], SOther1, SecondLine2, FirstLine2, [Main], FOther2, SOther2
+5. Last, SecondLine1, FirstLine1, FOther1, Grand, Grand1, Grand2, Main, SOther1, SecondLine2, FirstLine2, FOther2, SOther2
+6. Last, SecondLine1, FirstLine1, FOther1, SecondLine2, FirstLine2, Main, Grand, Grand1, Grand2, SOther1, FOther2, SOther2
 
 доп. материалы
 - https://tirinox.ru/mro-python/

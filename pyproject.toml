@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "study"
+version = "0.1.0"
+description = ""
+authors = ["Destriery <izzon@yandex.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "6.0.0"
+pytest = "7.2.0"
+pytest-asyncio = "0.20.3"
+pytest-cov = "4.0.0"
+
+[tool.pyright]
+exclude = [
+    "tests/"
+]
+
+[tool.poe]
+poetry_command = ""
+envfile = ".env"
+
+[tool.poe.tasks]
+
+    [tool.poe.tasks.checkout]
+    sequence = ["flake8", "pyright"]
+    help = "Check files by flake8 and pyright"
+    default_item_type = "cmd"
+    ignore_fail = true
+
+    [tool.poe.tasks.test]
+    cmd = "pytest --cov=src tests/"
+    help = "Run pytest"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
